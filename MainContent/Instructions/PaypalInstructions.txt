@@ -1,0 +1,12 @@
+In Payment Controller:
+
+Note: The methods that return a String return the name of the jsp file that will be rendered. The jsp files are in the web content folder.
+      The methods that return a String with redirect in it will redirect users to the link specified.
+
+Users direct to method with /pay-peerbuds.
+
+Call history example:
+http://localhost:8080/PaypalPrac/pay-peerbuds
+https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey=AP-S3838FBDDE7;
+A success will return a user to: http://localhost:8080/PaypalPrac/review-payment
+A cancelation of the payment will return the user to: http://localhost:8080/PaypalPrac/pay-peerbuds
