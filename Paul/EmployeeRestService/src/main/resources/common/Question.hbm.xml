@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name="com.peerbuds.employeerestservice.Models.Question" table="Question">
+      <meta attribute="class-description">
+         This class contains the question detail. 
+      </meta>
+      <id name="questionID" type="int" column="questionID">
+      </id>
+      <property name="testID" column="testID" type="int"/>
+      <property name="question" type="string" column="question"/>
+      <property name="questionType" type="string" column="questionType"/>
+      <property name="possibleAnswers" type="string" column="possibleAnswers"/>
+      <property name="correctAnswers" type="string" column="correctAnswers"/>
+   </class>
+</hibernate-mapping>

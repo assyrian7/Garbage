@@ -1,0 +1,7 @@
+com\peerbuds\profileservice\ProfileList.class
+com\peerbuds\profileservice\Flags.class
+com\peerbuds\profileservice\ProfileDaoImpl.class
+com\peerbuds\profileservice\ProfileService.class
+com\peerbuds\profileservice\Profile.class
+com\peerbuds\profileservice\JSONConverter.class
+com\peerbuds\profileservice\ProfileDao.class

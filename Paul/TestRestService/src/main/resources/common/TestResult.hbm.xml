@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name="com.peerbuds.testrestservice.Models.TestResult" table="TestResult">
+      <meta attribute="class-description">
+         This class contains the test result detail. 
+      </meta>
+      <id name="userID" type="int" column="userID" />
+      <property name="numberOfCorrect" type="int" column="numberOfCorrect" />
+      <property name="testID" column="testID" type="int"/>
+      <property name="numberOfWrong" type="int" column="numberOfWrong"/>
+      <property name="timestamp" type="string" column="timestamp"/>
+      <property name="numberOfAttempts" type="int" column="numberOfAttempts"/>
+   </class>
+</hibernate-mapping>
