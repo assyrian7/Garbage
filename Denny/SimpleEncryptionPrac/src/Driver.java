@@ -15,9 +15,9 @@ public class Driver {
 	public static void main(String[] args) throws UnsupportedEncodingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchPaddingException {
 
 		Scanner reader = new Scanner(System.in);
-		System.out.println("Enter text to be encrypted:");
+		System.out.print("Enter text to be encrypted: ");
 		String plainText = reader.nextLine();
-		System.out.println("Enter passphrase:");
+		System.out.print("Enter passphrase: ");
 		String passphrase = reader.nextLine();
 		SecretKey myKey = SimpleEncodeDecode.getSecretKey(passphrase);
 		
