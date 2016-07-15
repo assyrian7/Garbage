@@ -87,6 +87,9 @@ public class PaymentController {
 
 		String redirectUrl = Session.getRedirectURL(redirectURI, scopelist, apiContext, clientCredentials); 
 		
+		//withdraw: name of the file being rendered
+		//link is the name of the object being passed.
+		
 		return new ModelAndView("withdraw", "link", redirectUrl);
 	}
 	
