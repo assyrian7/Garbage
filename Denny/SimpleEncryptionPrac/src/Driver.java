@@ -1,6 +1,5 @@
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 import javax.crypto.BadPaddingException;
@@ -23,12 +22,14 @@ public class Driver {
 		SecretKey myKey = SimpleEncodeDecode.getSecretKey(passphrase);
 		
 		System.out.println("Key: " + myKey);
-		
 		System.out.println("Original Plain Text: " + plainText);
+		
 		String encryptedText = SimpleEncodeDecode.encrypt(plainText, myKey);
-		System.out.println("Key: " + encryptedText);
+		System.out.println("Encrypted Text: " + encryptedText);
+		
 		String decryptedText1 = SimpleEncodeDecode.decrypt(encryptedText, myKey);
 		System.out.println("Decoded: " + decryptedText1);
+		
 		reader.close();
 	}
 }
