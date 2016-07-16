@@ -18,7 +18,7 @@ public class SimpleEncodeDecode
 	private static Cipher cipher;
 	private static final String cipherType = "AES";
 	
-	public static SecretKey getSecretKey(String key)
+	private static SecretKey getSecretKey(String key)
 	{
 		MessageDigest digest = null;
 		try {
@@ -33,7 +33,7 @@ public class SimpleEncodeDecode
 		return secretKey;
 	}
 	
-	public static String encrypt(String input, SecretKey secretKey)
+	public static String encrypt(String input, String passphrase)
 	{
 		try {
 			cipher = Cipher.getInstance(cipherType);
@@ -44,7 +44,7 @@ public class SimpleEncodeDecode
 			e.printStackTrace();
 		}
 		try {
-			cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+			cipher.init(Cipher.ENCRYPT_MODE, getSecretKey(passphrase));
 		} catch (InvalidKeyException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,7 +57,7 @@ public class SimpleEncodeDecode
 		}
 		return null;
 	}
-	public static String decrypt(String encryptedText, SecretKey secretKey) 
+	public static String decrypt(String encryptedText, String passphrase) 
 	{
 		try {
 			cipher = Cipher.getInstance(cipherType);
@@ -66,7 +66,7 @@ public class SimpleEncodeDecode
 			e.printStackTrace();
 		}
 		try {
-			cipher.init(Cipher.DECRYPT_MODE, secretKey);
+			cipher.init(Cipher.DECRYPT_MODE, getSecretKey(passphrase));
 		} catch (InvalidKeyException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
