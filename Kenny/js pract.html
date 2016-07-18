@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fuck team instinct</title>
+</head>
+<body>
+
+<style>
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+    #content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 30%; /* Could be more or less, depending on screen size */
+        height: 30%;
+        -webkit-animation-name: animate;
+        -webkit-animation-duration: 5s;
+        animation-name: animate;
+        animation-duration: 1s
+
+    }
+    @-webkit-keyframes animate {
+        from {top: -300px; opacity: 0}
+        to {top: 0; opacity: 1}
+    }
+
+    @keyframes animate {
+        from {top: -300px; opacity: 0}
+        to {top: 0; opacity: 1}
+    }
+
+    #close {
+        color: black;
+        font-family: Arial;
+        float: right;
+        cursor: pointer;
+        transition: background-color 1s ease;
+        background-color: grey;
+    }
+    #close:hover {
+        color: white;
+        background-color: red;
+        cursor: pointer;
+    }
+    .left {
+        width: 30%;
+        float: left;
+        text-align: right;
+    }
+    .right {
+        width: 65%;
+        margin-left: 10px;
+        float: left;
+    }
+    .footer {
+        position:fixed;
+        left:650px;
+        bottom:100px;
+
+        background:#999;
+        margin: 15%auto; /* 15% from the top and centered */
+        padding: 30px 30px;
+        border: 1px solid #888;
+        width: 2%; /* Could be more or less, depending on screen size */
+        height: 2%
+    }
+    .trans {
+        transition: background-color 1s ease;
+        background-color: white;
+    }
+    .trans:hover {
+        background-color: orange;
+        cursor: pointer;
+    }
+    .
+</style>
+<span class="trans" id="button">
+    Pay Now
+</span>
+<div class="modal" id="parent">
+    <div id="content">
+        <div class="footer" id="close">
+            <b>Close</b>
+        </div>
+        <div class="left">
+            Card Number
+        </div>
+        <div class="right">
+            <input type="number" onkeydown="if(this.value.length==16) this.value = this.value.slice(0, - 1);"><br>
+        </div>
+        <div class="left">
+            CCV
+        </div>
+        <div class="right">
+            <input type="text" name="Security Code"><br>
+        </div>
+        <div class="left">
+            Info
+        </div>
+        <div class="right">
+            <input type="text" name="Info"><br>
+        </div>
+        <div class="left">
+            Experation Date
+        </div>
+        <div class="right">
+            <input type="text" name="exp"><br>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    var button = document.getElementById("button");
+
+    var modal = document.getElementById("parent");
+    button.onclick = function() {
+        modal.style.display = "block";
+    };
+    var close = document.getElementById("close");
+    close.onclick = function(){
+        modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+</script>
+</body>
+</html>
