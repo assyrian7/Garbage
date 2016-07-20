@@ -39,3 +39,6 @@ public class FirstServlet extends HttpServlet {
 		
 	}
 }
+
+
+//compare and contrast servlet and spring mvc 
