@@ -61,5 +61,4 @@ public class EmailServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		processRequest(request, response);
 	}
-
 }
