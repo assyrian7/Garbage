@@ -3,62 +3,51 @@ package com.peerbuds.denny.email;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class EmailServlet
- */
 @WebServlet("/EmailServlet")
 public class EmailServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-    private EmailSessionBean emailBean;  
 	
-    public EmailServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    	throws ServletException, IOException {
-    		String to = request.getParameter("to");
-    		String subject = request.getParameter("subject");
-    		String body = request.getParameter("body");
-    		
-    		emailBean.sendEmail(to, subject, body);
-    		
-    		response.setContentType("text/html;charset=UTF-8");
-    		PrintWriter out = response.getWriter();
-    		
-    		try 
-    		{
-    			out.println("<html>");
-    			out.println("<head>");
-    			out.println("<title>Servlet EmailServlet</title>");
-    			out.println("</head>");
-    			out.println("<body>");
-    			out.println("<h1>Form Submitted</h1>");
-    			out.println("</body>");
-    			out.println("</html>");
-    		} finally {
-    			out.close();
-    		}
-    	}
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	private String host;
+	private String port;
+	private String username;
+	private String password;
+	
+	public void init()
+	{
+		ServletContext context = getServletContext();
+		host = context.getInitParameter("host");
+		port = context.getInitParameter("port");
+		username = context.getInitParameter("username");
+		password = context.getInitParameter("password");
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		processRequest(request, response);
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// Read input from form fields.
+		String to = request.getParameter("to");
+		String subject = request.getParameter("subject");
+		String body = request.getParameter("body");
+		
+		String resultMessage = "";
+
+		try {
+			EmailUtility.sendEmail(host, port, username, password, to, subject, body);
+			resultMessage = "The e-mail was sent successfully";
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			resultMessage = "There were an error: " + ex.getMessage();
+		} finally {
+			request.setAttribute("Message", resultMessage);
+			getServletContext().getRequestDispatcher("/Results.jsp").forward(
+					request, response);
+		}
 	}
 }
