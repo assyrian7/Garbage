@@ -40,5 +40,5 @@ public class FirstServlet extends HttpServlet {
 	}
 }
 
-
+//sending email using java web
 //compare and contrast servlet and spring mvc 

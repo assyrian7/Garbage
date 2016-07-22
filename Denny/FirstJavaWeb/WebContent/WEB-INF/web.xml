@@ -12,7 +12,7 @@
   <servlet>
         <servlet-name>Hello</servlet-name>
         <servlet-class>com.peerbuds.Denny.webapp1.FirstServlet</servlet-class>
-    </servlet>
+  </servlet>
     <servlet-mapping>
         <servlet-name>Hello</servlet-name>
         <url-pattern>/FirstServlet</url-pattern>
