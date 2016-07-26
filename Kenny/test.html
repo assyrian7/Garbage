@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment_Page</title>
+</head>
+
+<body>
+
+
+<style>
+
+</style>
+
+
+
+<div class="question" id="MC">
+    Question<br>
+    <input type="text">
+    </input>
+    <br>
+    Question Type<br>
+    <input type="text" value="Multiple Choice" readonly>
+    </input>
+    <br>
+    Answer<br>
+    <input type="button" id="addoption" onclick="addMC()" value="Add Choice"/>
+    <input type="button" id="deleteoption" onclick="removeMC()" value="Delete Choice"/>
+    <br>
+    <div>
+        <ol type="A" id="MCanswer">
+            <li id="MClist">
+                <input type="radio" name="1"></input> <input type="text"><br>
+            </li>
+            <li>
+                <input type="radio" name="1"></input> <input type="text"><br>
+            </li>
+        </ol>
+    </div>
+</div>
+
+
+<hr>
+</hr>
+
+
+
+<div class="question" id="TF">
+    Question<br>
+    <input type="text">
+    </input>
+    <br>
+    Question Type<br>
+    <input type="text" value="True/False" readonly>
+    </input>
+    <br>
+    <div id="answer">
+        Answer<br>
+        True.<input type="radio" name="2"></input><br>
+        False.<input type="radio" name="2"></input><br>
+    </div>
+
+</div>
+
+
+<hr>
+</hr>
+<div class="question" id="written">
+    Question<br>
+    <input type="text">
+    </input>
+    <br>
+    Question Type<br>
+    <input type="text" value="Answer the question" readonly>
+    </input>
+    <br>
+    <div id="answer">
+        Answer<br>
+        <input type="text"></input>
+    </div>
+
+</div>
+
+<hr>
+</hr>
+
+
+<div class="question" id="Fill">
+    Question<br>
+
+    <input type='text' name='fname' class='chatinput'
+           onkeyUp="document.getElementById('printchatbox').innerHTML = this.value" />
+    <br>
+    Question Type<br>
+    <input type="text" value="Fill in the blank" readonly>
+    </input>
+    <br>
+    <div id="wrapper">
+        <div id="answer">
+            Answer<br>
+            <div class='printchatbox' id='printchatbox'></div>
+            <input type="button" id="add" onclick="create()" value="Add answer"/>
+            <input type="button" id="delete" onclick="create()" value="Remove answer"/>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+
+    function create() {
+        var btn = document.createElement("INPUT");        // Create a <button> element
+        var t = document.createTextNode("CLICK ME");       // Create a text node
+        btn.appendChild(t);                                // Append the text to <button>
+        document.body.appendChild(btn);
+        //return btn;
+    }
+
+
+
+    //need to access local variable 'btn'
+    //function remover() {
+    //    document.body.appendChild(btn);
+    //}
+
+
+
+    var MCquestioncounter = 2;
+
+    function removeMC() {
+        if (MCquestioncounter > 2) {
+            var btn = document.getElementById("MCanswer");
+            var question = document.getElementById("MClist");
+            btn.removeChild(question);
+            MCquestioncounter--;
+        }
+    }
+
+    function addMC() {
+
+        var btn = document.getElementById("MCanswer");
+        var question = document.getElementById("MClist").cloneNode(true);
+        btn.appendChild(question);
+        MCquestioncounter++;
+    }
+
+    //need to make object, but counter fails
+    //var MC = {
+    //    MCquestioncounter : 2,
+    //    removeMC: function() {
+    //        if (MCquestioncounter > 2) {
+    //            var btn = document.getElementById("MCanswer");
+    //            var question = document.getElementById("MClist");
+    //            btn.removeChild(question);
+    //            MC.MCquestioncounter--;
+    //        }
+    //    },
+    //    addMC: function() {
+    //
+    //        var btn = document.getElementById("MCanswer");
+    //        var question = document.getElementById("MClist").cloneNode(true);
+    //        btn.appendChild(question);
+    //        MC.MCquestioncounter++;
+    //    }
+    //}
+</script>
+
+
+
+</body>
+</html>
