@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/EmailServlet")
 public class EmailServlet extends HttpServlet {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String host;
 	private String port;
 	private String username;
@@ -46,8 +50,7 @@ public class EmailServlet extends HttpServlet {
 			resultMessage = "There were an error: " + ex.getMessage();
 		} finally {
 			request.setAttribute("Message", resultMessage);
-			getServletContext().getRequestDispatcher("/Results.jsp").forward(
-					request, response);
+			getServletContext().getRequestDispatcher("/Results.jsp").forward(request, response);
 		}
 	}
 }

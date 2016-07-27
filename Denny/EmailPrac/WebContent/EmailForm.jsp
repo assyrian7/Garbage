@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Gmail</title>
+<title>Email Sender</title>
 </head>
 <body>
 <form action="EmailServlet" method="post">

@@ -1,5 +1,6 @@
 package com.peerbuds.denny.email;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
 
@@ -30,13 +31,33 @@ public class EmailUtility {
 
 		// creates a new e-mail message
 		Message message = new MimeMessage(session);
-
+		
+		MimeMultipart content = new MimeMultipart();
+		
+		//Images part
+		MimeBodyPart imagePart = new MimeBodyPart();
+		/* This block throws IOException when called.
+		 try {
+			imagePart.attachFile("src/main/resources/local/email-banner.jpg");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		imagePart.setDisposition(MimeBodyPart.INLINE);
+		content.addBodyPart(imagePart);*/
+		//HTML part
+		MimeBodyPart textPart = new MimeBodyPart();
+		textPart.setText("<html>" + messageBody + "</html>", "US-ASCII" ,"html");
+		content.addBodyPart(textPart);
+		
+		
 		message.setFrom(new InternetAddress(userName));
 		InternetAddress[] toAddresses = { new InternetAddress(toAddress) };
 		message.setRecipients(Message.RecipientType.TO, toAddresses);
 		message.setSubject(subject);
 		message.setSentDate(new Date());
-		message.setContent(messageBody, "text/html");
+		message.setContent(content, "text/html");
+		message.saveChanges();
 
 		// sends the e-mail
 	    Transport transport = session.getTransport("smtp");
