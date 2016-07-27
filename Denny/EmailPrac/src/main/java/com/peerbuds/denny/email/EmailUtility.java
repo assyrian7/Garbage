@@ -34,17 +34,6 @@ public class EmailUtility {
 		
 		MimeMultipart content = new MimeMultipart();
 		
-		//Images part
-		MimeBodyPart imagePart = new MimeBodyPart();
-		/* This block throws IOException when called.
-		 try {
-			imagePart.attachFile("src/main/resources/local/email-banner.jpg");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		imagePart.setDisposition(MimeBodyPart.INLINE);
-		content.addBodyPart(imagePart);*/
 		//HTML part
 		MimeBodyPart textPart = new MimeBodyPart();
 		textPart.setText("<html>" + messageBody + "</html>", "US-ASCII" ,"html");
