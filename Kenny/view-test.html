@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"></link> <!-- load bootstrap css -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"></link> <!-- load fontawesome -->
+	<link rel="stylesheet" href="css/icono.css"></link>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="javascript/Question.js"></script>
+	
+</head>
+<body>
+
+	<div id="mcQuestion" style="display: none;">
+		<p class="question"></p>
+		<input class="answer" type="radio" name="correctAnswer" value="" /><label>Paul</label><br/>
+		<input class="answer" type="radio" name="correctAnswer" value="" /><label>Paul</label><br/>
+		<input class="answer" type="radio" name="correctAnswer" value="" /><label>Paul</label><br/>
+		<input class="answer" type="radio" name="correctAnswer" value="" /><label>Paul</label><br/>
+		
+	</div>
+
+	
+	<script>
+		var question = "What is my name?";
+		var pAnswers = ["Paul", "David", "Ryan", "Chris"];
+		var correctAnswer = "Paul";
+		var questionType = "MC";
+		
+		//var mcQuestion = document.getElementById("mcQuestion").cloneNode(true);
+		
+		if(questionType == "MC"){
+			var mcQuestion = document.getElementById("mcQuestion").cloneNode(true);
+			document.body.appendChild(mcQuestion);
+			mcQuestion.id = "paul";
+			var possibleAnswers = mcQuestion.getElementsByClassName("answer");
+			var labels = mcQuestion.getElementsByTagName("label");
+			possibleAnswers[0].value = pAnswers[0];
+			possibleAnswers[1].value = pAnswers[1];
+			possibleAnswers[2].value = pAnswers[2];
+			possibleAnswers[3].value = pAnswers[3];
+			
+			labels[0].innerHTML = pAnswers[0];
+			labels[1].innerHTML = pAnswers[1];
+			labels[2].innerHTML = pAnswers[2];
+			labels[3].innerHTML = pAnswers[3];
+
+			var q = mcQuestion.getElementsByClassName("question")[0];
+			q.innerHTML = question;
+			console.log(q.innerHTML);
+			mcQuestion.style.display = 'block';
+			console.log(mcQuestion.style.display);
+		}
+		
+		
+		
+	</script>
+</body>
+</html>
