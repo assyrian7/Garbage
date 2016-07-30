@@ -23,7 +23,7 @@ public class EmailServlet extends HttpServlet {
 	private String password;
 	
 	public void init()
-	{
+	{//Gets the properties from web.xml file.
 		ServletContext context = getServletContext();
 		host = context.getInitParameter("host");
 		port = context.getInitParameter("port");

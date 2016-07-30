@@ -1,6 +1,7 @@
 package com.peerbuds.denny.email;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Properties;
 
@@ -40,7 +41,7 @@ public class EmailUtility {
 		content.addBodyPart(textPart);
 		
 		
-		message.setFrom(new InternetAddress(userName));
+		message.setFrom(new InternetAddress("Peerbuds Registration <no-reply@peerbuds.registration.com>"));
 		InternetAddress[] toAddresses = { new InternetAddress(toAddress) };
 		message.setRecipients(Message.RecipientType.TO, toAddresses);
 		message.setSubject(subject);
