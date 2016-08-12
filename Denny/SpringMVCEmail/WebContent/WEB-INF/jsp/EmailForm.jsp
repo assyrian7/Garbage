@@ -6,21 +6,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Email sender</title>
+<title>Forgot Password</title>
 </head>
 <body>
-	<h2>Spring MVC E-mail</h2>
+	<h2>Reset your password</h2>
 	${error}
 	<form:form action="send" method="post" modelAttribute="mail">
 		<table border="0" width="35%" align="center"> 
-			<div>To:</div>
+			<div>Enter your email address:</div>
 			<form:input path="to" />
-			<div>Subject:</div>
-			<form:input path="subject" />
-			<div>Body:</div>
-			<form:textarea path="body" rows="10" cols="40" />
 			<hr>
-			<input type="submit" value="Send">
+			<input type="submit" value="Reset Password">
 		</table>
 	</form:form>
 </body>

@@ -4,16 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Hello World</title>
+<title>Reset Password</title>
 </head>
 <body>
-	<h2>Send Email Success</h2>
+	<h2>Reset Password</h2>
 	<ul>
-		<li>From: ${mail.from}</li>
-		<li>To: ${mail.to}</li>
-		<li>Subject: ${mail.subject}</li>
-		<li>Body: ${mail.body}</li>
-		</li>
+		<li>An e-mail has been sent to ${mail.to}</li>
+		<li>Please follow the instructions in the e-mail to reset your password.</li>
 	</ul>
 </body>
 </html>

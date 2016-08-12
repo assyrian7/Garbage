@@ -1,10 +1,13 @@
 package com.klouddata.peerbuds.SpringMVCEmailPrac;
 
+import java.util.UUID;
+
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -33,7 +36,7 @@ public class EmailController {
 	}
  
 	@RequestMapping(value = "send", method = RequestMethod.POST)
-	public String sendWithAttach(ModelMap model,
+	public String createResetEmail(HttpServletRequest request, ModelMap model,
 			@ModelAttribute("mail") EmailInfo mailInfo) {
 		try {
 			final JavaMailSenderImpl ms = (JavaMailSenderImpl) mailSender;
@@ -41,17 +44,26 @@ public class EmailController {
 			
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
 			
-			//get only username to show
 			String frEmail = ms.getUsername();
-			mailInfo.setFrom(frEmail);
+			mailInfo.setFrom("no-reply@peerbuds-registration.com");
+			
+			String token = UUID.randomUUID().toString();
+			
+			String contextPath = "http://" + request.getServerName() + 
+				      ":" + request.getServerPort() + 
+				      request.getContextPath();
+			String url = contextPath + "/user/changePassword?id=" + mailInfo.getTo() + "&token=" + token;
 		
 			helper.setFrom(new InternetAddress(null, "Peerbuds Registration"));			
 			helper.setTo(mailInfo.getTo());
 			//helper.setReplyTo(mailInfo.getFrom()); //if any
-			helper.setSubject(mailInfo.getSubject());
+			helper.setSubject("Reset your password");
 			
 			//Set true for html.
-			helper.setText(mailInfo.getBody(), true);
+			helper.setText("<html><head><title>Success</title></head>"
+					+ "<body><p>To reset your password, "
+					+ "please click the link provided: "
+					+ "<a href="+ url +">Reset your password</a></body></html>", true);
 			
 			mailSender.send(message);
 		} catch (Exception ex) {
@@ -60,6 +72,5 @@ public class EmailController {
 		}
 		return "Result";
 	}
- 
-
+	
 }
