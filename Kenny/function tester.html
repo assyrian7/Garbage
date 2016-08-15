@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Fill testing</title>
+</head>
+<body>
+
+<style>
+    #box {
+        font-size: 20px;
+    }
+</style>
+
+<input type="text" id="box" oninput="live()"/>
+<div id="inputer"></div>
+
+<script>
+    var counter = 0;
+    var whileCounter = 0;
+    function live()
+    {
+        var getPrint = document.getElementById("box").value;
+        var check = getPrint.includes("___");
+        while (check)
+        {
+            var index = getPrint.indexOf("___");
+            if (index === 0)
+            {
+                getPrint = getPrint.substring(3, getPrint.length);
+            }
+            else
+            {
+                getPrint = getPrint.substring(index + 3, getPrint.length);
+            }
+            check = getPrint.includes("___");
+            whileCounter++;
+        }
+        creater(whileCounter);
+        whileCounter = 0;
+    }
+
+    function creater(num)
+    {
+        var inputer = document.getElementById("inputer");
+        while (whileCounter > counter)
+        {
+            var makeBox = document.createElement("INPUT");
+            inputer.appendChild(makeBox);
+            inputer.appendChild(document.createElement("br"));
+            counter++;
+        }
+        while (counter > whileCounter)
+        {
+            var lastkid = inputer.lastChild;//removes br and input childs
+            inputer.removeChild(lastkid);
+            var lastkid = inputer.lastChild;
+            inputer.removeChild(lastkid);
+            counter--;
+            console.log(counter);
+        }
+    }
+
+</script>
+
+
+</body>
+</html>
