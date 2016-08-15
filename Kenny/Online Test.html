@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Test</title>
+</head>
+<body>
+<style>
+    .parent {
+        font-family: Arial;
+        width: 600px;
+        height: 1100px;
+        padding: 20px;
+        border: 5px solid teal;
+        margin-bottom: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .parent .btn {
+        width: 200px;
+        height: 100px;
+        margin-top: 10%;
+        margin-left: 200px;
+        margin-right: 200px;
+        font-size: 150%;
+    }
+    #box {
+        height: 30px;
+        width: 300px;
+        font-size: 100%;
+    }
+    #holy {
+        font-size: 200%;
+        text-align: center;
+    }
+    .footer {
+        font-weight: bold;
+    }
+</style>
+
+<div class="parent">
+    <div class="content">
+        <div class="footer" id="holy">
+            Online Test<br>
+            <hr>
+            </hr>
+        </div>
+        <div class="footer">
+            Part 1. Written Questions<br>
+            <hr id="first line">
+            </hr>
+        </div>
+        <div class="questions" id="first">
+            <ol id="first questions">
+                <li>
+                    First Question<br>
+                    <input type="text" id="box">
+                    </input>
+                </li>
+                <br>
+                <li>
+                    Second Question<br>
+                    <input type="text" id="box">
+                    </input>
+                </li>
+            </ol>
+        </div>
+
+        <div class="footer">
+            <br>Part 2. Written Questions<br>
+            <hr id="second line">
+            </hr>
+        </div>
+
+        <div class="questions" id="second">
+            <ol id="second questions">
+                <li>
+                    First Question<br>
+                    <input type="text" id="box">
+                    </input>
+                </li>
+                <br>
+                <li>
+                    Second Question<br>
+                    <input type="text" id="box">
+                    </input>
+                </li>
+            </ol>
+        </div>
+
+        <div class="footer">
+            <br>Part 3. True/False Multiple Choice<br>
+            <hr id="third line">
+            </hr>
+        </div>
+
+        <form>
+            <ol id="third questions">
+                <li>
+                    True/False Question<br>
+                    True <input type="radio" name="tf"><br>
+                    Flase <input type="radio" name="tf"><br>
+                </li>
+                <br>
+                <li>
+                    Multiple Choice Question<br>
+                    A <input type="radio" name="tf2"><br>
+                    B <input type="radio" name="tf2"><br>
+                    C <input type="radio" name="tf2"><br>
+                    D <input type="radio" name="tf2"><br>
+                </li>
+            </ol>
+        </form>
+
+        <div class="footer">
+            <br>Part 4. Fill in the Blank<br>
+            <hr id="fourth line">
+            </hr>
+        </div>
+
+        <ol id="fourth questions">
+            <li>
+                Fill in the blank <input type="text" id="box"></input>. First Question.<br>
+            </li>
+            <br>
+            <li>
+                Fill in the blank <input type="text" id="box"></input>. Second Question.<br>
+            </li>
+        </ol>
+
+        <input type="button" value="Submit Test" onclick="submit()" class="btn">
+        </input>
+    </div>
+</div>
+
+<script>
+    function submit(){
+        confirm("Ready to submit?");
+    }
+    /*
+    var question = "Answer the following";
+    var questionID = 1;
+    var questionType = "MC";
+    Var possibleAnswers = ["A", "B", "C", "D"];
+     */
+</script>
+
+</body>
+</html>
