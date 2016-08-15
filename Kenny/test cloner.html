@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Maker Appearance</title>
+</head>
+<body>
+
+<style>
+    body {
+        background-color: bisque;
+    }
+    .master {
+        background-color: white;
+        box-shadow: 3px 3px 3px #9e9b9e;
+        margin: 5%;
+        width: 70%;
+        border-radius: 5px;
+        opacity: 1;
+    }
+    #content {
+        padding: 50px;
+    }
+    .questionElement {
+        padding: 20px;
+    }
+    input[type="radio"] {
+        cursor: pointer;
+    }
+    .userAns input[type="text"] {
+        font-family: Arial;
+        font-size: 16px;
+    }
+    .userAns ol {
+        padding-left: 1.2em;
+    }
+    .MCradio {
+        padding: 5px;
+    }
+    .boxFormat {
+        font-size: 16px;
+        font-family: Arial;
+    }
+    .type {
+        font-family: Arial;
+    }
+    .userAns {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+</style>
+
+
+<div class="type" id="TFquestion" style = "display: none">
+    <label id="TFquestionBlock" readonly></label><br>
+    <div class="userAns" id="TFans">
+        <input type="radio" name="TF"/> <a>True</a>
+        <input type="radio" name="TF"/> <a>False</a><br>
+    </div>
+    Answer is:<br>
+    <label id="TFtext"/><br>
+</div>
+
+<div class="type" id="Fillquestion" style = "display: none">
+    <label id="FillquestionBlock" readonly></label><br>
+    <div class="userAns" id="Fillans">Your Answer:<br></div><br>
+    Answer is:<br>
+    <label id="Filltext"></label><br>
+</div>
+
+<div class="type" id="Writtenquestion" style = "display: none">
+    <label id="WrittenquestionBlock" readonly></label>
+    <div class="userAns" id="Writtenans">
+        Your Answer:<br>
+        <input type="text"/>
+
+    </div>
+    Answer is:<br>
+    <label id="Writtentext"/></label><br>
+</div>
+
+<div class="type" id="MCquestion" style = "display: none">
+    <label id="MCquestionBlock" readonly></label><br>
+    <div class="userAns" id="MCans">
+        <ol type="a">
+            <li class="MCradio">
+                <input type="radio" name="MC"/><label></label><br>
+            </li>
+            <li class="MCradio">
+                <input type="radio" name="MC"/><label></label><br>
+            </li>
+            <li class="MCradio">
+                <input type="radio" name="MC"/><label></label><br>
+            </li>
+            <li class="MCradio">
+                <input type="radio" name="MC"/><label></label><br>
+            </li>
+        </ol>
+    </div>
+    Answer is:<br>
+    <label id="MCtext" readonly></label><br>
+</div>
+
+
+<div class="master" id="container">
+    <div id="wrapper">
+        <div id="content">
+            <ol type="1" id="questionContainer">
+            </ol>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    var num = 0;
+    //var repeat;
+    //var Written = document.getElementById("Writtenquestion");
+    //var TF = document.getElementById("TFquestion");
+    //var Fill = document.getElementById("Fillquestion");
+    //Written.style.display = "none";
+    //TF.style.display = "none";
+    //Fill.style.display = "none";
+
+    var input =
+    {
+        question: "",
+        questionType: "",
+        answer: "",
+        Filldata: function()
+        {
+            this.questionType = "Fill";
+            this.question = "Fill the missing number: 1, ___, 3, ___, 5";
+            this.answer = "2, 4";
+        },
+        MCdata: function()
+        {
+            this.questionType = "MC";
+            this.question = "Who is the president of the USA?";
+            this.answer = "Obama";
+            var choices = ["Putin", "Obama", "Mitt Romney", "Bernie Sanders"];
+            return choices;
+        },
+        Writtendata: function()
+        {
+            this.questionType = "Written";
+            this.question = "What is a female sibling called?";
+            this.answer = "Sister";
+        },
+        TFdata: function()
+        {
+            this.questionType = "TF";
+            this.question = "Dogs are very common pets";
+            this.answer = "True";
+        },
+        info: function()
+        {
+            //this.questionType = prompt("What type of question?(input Written, Fill, MC, TF)");
+            //while (!this.questionType || this.questionType != "Written" || this.questionType != "Fill" || this.questionType != "MC" || this.questionType != "TF")
+            //{
+            //    alert("Cannot accept empty input or format does not exist");
+            //    this.questionType = prompt("What type of question?(input Written, Fill, MC, TF)");
+            //}
+            //if (this.questionType === "Fill") {
+            //    alert("Create 3 underscores to make an input");
+            //}
+            //this.question = prompt("Write the question here");
+            //while (!this.question)
+            //{
+            //    alert("Cannot accept empty input");
+            //    this.question = prompt("Write the question here");
+            //}
+            //if (this.questionType === "Fill")
+            //{
+            //    FillinputCheck(this.question);
+            //}
+            //this.answer = prompt("What is the answer to the question?");
+            //while (!this.answer)
+            //{
+            //    alert("Cannot accept empty input");
+            //    this.answer = prompt("What is the answer to the question?");
+            //}
+        }
+    };
+
+    function mockDisplay()
+    {
+        var inputObj = Object.create(input);
+        inputObj.Writtendata();
+        createWritten(inputObj);
+        inputObj.TFdata();
+        createTF(inputObj);
+        inputObj.Filldata();
+        createFill(inputObj);
+        inputObj.MCdata();
+        createMC(inputObj);
+    }
+    mockDisplay();
+
+    function createQuestion()
+    {
+        var inputObj = Object.create(input);
+        inputObj.info();
+        if (!inputObj.question || !inputObj.answer || !inputObj.questionType)
+        {
+            return;
+        }
+        else
+        {
+            if (inputObj.questionType === "Written")
+            {
+                createWritten(inputObj);
+            }
+            if (inputObj.questionType === "TF")
+            {
+                createTF(inputObj);
+            }
+            if (inputObj.questionType === "Fill")
+            {
+                createFill(inputObj);
+            }
+            if (inputObj.questionType === "MC")
+            {
+                createMC(inputObj);
+            }
+        }
+    }
+
+    //createQuestion();
+
+    function createWritten(obj)
+    {
+        num++;
+        var getWritten = document.getElementById("Writtenquestion").cloneNode(true);
+        getWritten.id = "Writtenquestion" + num;
+        document.body.appendChild(getWritten);
+        getWritten.style.display = "block";
+
+        //document.getElementById(getWritten.id).querySelector("#WrittenquestionBlock").value = obj.question;
+        //document.getElementById(getWritten.id).querySelector("#Writtentext").value = obj.answer;
+
+        var test = getWritten.getElementsByTagName("label");
+        test[0].innerHTML = obj.question;
+        test[1].innerHTML = obj.answer;
+
+        var getMaster = document.getElementById("questionContainer");
+        var getlist = document.createElement("li");
+        getlist.appendChild(getWritten);
+        getlist.className = "questionElement";
+        getMaster.appendChild(getlist);
+
+        //repeat = confirm("Make another question?");
+    }
+
+    function createTF(obj)
+    {
+        num++;
+        var getTF = document.getElementById("TFquestion").cloneNode(true);
+        getTF.id = "TFquestion" + num;
+        document.body.appendChild(getTF);
+        getTF.style.display = "block";
+
+        //document.getElementById(getTF.id).querySelector("#TFquestionBlock").value = obj.question;
+        //document.getElementById(getTF.id).querySelector("#TFtext").value = obj.answer;
+
+        var test = getTF.getElementsByTagName("label");
+        test[0].innerHTML = obj.question;
+        test[1].innerHTML = obj.answer;
+
+        var getMaster = document.getElementById("questionContainer");
+        var getlist = document.createElement("li");
+        getlist.appendChild(getTF);
+        getlist.className = "questionElement";
+        getMaster.appendChild(getlist);
+
+        //repeat = confirm("Make another question?");
+    }
+
+    function createMC(obj)
+    {
+        num++;
+        var getMC = document.getElementById("MCquestion").cloneNode(true);
+        getMC.id = "MCquestion" + num;
+        document.body.appendChild(getMC);
+        getMC.style.display = "block";
+
+        //document.getElementById(getMC.id).querySelector("#MCquestionBlock").value = obj.question;
+        //document.getElementById(getMC.id).querySelector("#MCtext").value = obj.answer;
+
+        var test = getMC.getElementsByTagName("label");
+        test[0].innerHTML = obj.question;
+        test[1].innerHTML = obj.MCdata()[0];
+        test[2].innerHTML = obj.MCdata()[1];
+        test[3].innerHTML = obj.MCdata()[2];
+        test[4].innerHTML = obj.MCdata()[3];
+        test[5].innerHTML = obj.answer;
+
+        var getMaster = document.getElementById("questionContainer");
+        var getlist = document.createElement("li");
+        getlist.className = "questionElement";
+        getlist.appendChild(getMC);
+        getMaster.appendChild(getlist);
+
+        //repeat = confirm("Make another question?");
+    }
+
+    function createFill(obj)
+    {
+        num++;
+        var getFill = document.getElementById("Fillquestion").cloneNode(true);
+        getFill.id = "Fillquestion" + num;
+        document.body.appendChild(getFill);
+        getFill.style.display = "block";
+        //document.getElementById(getFill.id).querySelector("#FillquestionBlock").value = obj.question;
+        //document.getElementById(getFill.id).querySelector("#Filltext").value = obj.answer;
+
+        var test = getFill.getElementsByTagName("label");
+
+        test[0].innerHTML += checkFill(obj.question);
+        test[1].innerHTML = obj.answer;
+
+        var getMaster = document.getElementById("questionContainer");
+        var getlist = document.createElement("li");
+        getlist.appendChild(getFill);
+        getlist.className = "questionElement";
+        getMaster.appendChild(getlist);
+
+        //repeat = confirm("Make another question?");
+    }
+
+    function checkFill(question)
+    {
+        var check = question.includes("___");
+        var counter = 0;
+        var label = document.getElementById("FillquestionBlock");
+        while (check)
+        {
+            var index = question.indexOf("___");
+            if (index === 0) {
+                question = question.substr(3, question.length);
+                var text = document.createElement("INPUT");
+                label.appendChild(document.body.appendChild(text));
+            }
+            else {
+                substr = question.substr(index + 3, question.length);
+                question = question.substr(0, index);
+                label.innerHTML += question;
+                var text = document.createElement("INPUT");
+                label.appendChild(document.body.appendChild(text));
+                question = substr;
+
+            }
+            text.className = "boxFormat";
+            counter++;
+            check = question.includes("___");
+        }
+        for (i = 0; i < counter; i++)
+        {
+            var node = document.createElement("INPUT");
+            var getFill = document.getElementById("Fillquestion" + num).querySelector("#Fillans");
+            var newLine = document.createElement("br");
+            getFill.appendChild(node);
+            getFill.appendChild(newLine);
+            node.className = "boxFormat";
+        }
+        return label.innerHTML += question;
+    }
+
+    //while (repeat === true)
+    //{
+    //    createQuestion();
+    //}
+
+
+</script>
+
+</body>
+</html>
