@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"></link> <!-- load bootstrap css -->
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"></link> <!-- load fontawesome -->
+		<link rel="stylesheet" href="css/icono.css"></link>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="javascript/Question.js"></script>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"></meta>
+		<title>Click to duplicate</title>
+		<script type="text/javascript">
+			var qNum = 1;
+			var size = 0;
+			var question = document.getElementById("question");
+			
+			function add(){
+				var form = document.getElementById("form");
+				var cloneQuestion = document.getElementById("question").cloneNode(true);
+				form.appendChild(cloneQuestion);
+				var minusButton = cloneQuestion.getElementsByTagName("div")[0].firstChild;
+				minusButton.id = "minusButton" + qNum;
+				cloneQuestion.id = "question" + qNum;
+				cloneQuestion.style.display = 'block';
+				button.style.display = "block";
+				qNum+=1;
+				size+=1;
+			}
+			function addAnswers(mcQuestion){
+				var newAnswer = mcQuestion.getElementsByTagName("DIV")[0].cloneNode(true);
+				mcQuestion.appendChild(newAnswer);
+				newAnswer.style.display = "block";
+			}
+			function minus(questionID){
+				var button = document.getElementById("button");
+				var ID = parseInt(questionID.substring(8));
+				var form = document.getElementById("form");
+				var question = document.getElementById("question" + ID);
+				question.parentNode.removeChild(question);
+				if(size <= 1){
+					button.style.display = "none";
+				}
+				size-=1;
+			}
+			function minusAnswer(answer){
+				answer.parentNode.removeChild(answer);
+			}
+			function selectType(select){
+				var type = select.value;
+				if(type == "MC"){
+					if(select.parentNode.parentNode.getElementsByClassName("container")[0] != null){
+						var oldQuestion = select.parentNode.parentNode.getElementsByClassName("container")[0];
+						select.parentNode.parentNode.removeChild(oldQuestion);
+					}
+					var mcQuestion = document.getElementById("mcQuestion").cloneNode(true);
+					select.parentNode.parentNode.appendChild(mcQuestion);
+					mcQuestion.style.display="block";
+					
+				}
+			}
+			function submit(){
+				var data = "";
+				data += "{\"questions\":[";
+				var form = document.getElementById("form");
+				for(i = 1; i <= size; i++){
+					var question = form.getElementsByClassName("container")[i];
+					var questionID = question.getElementsByClassName("form-group")[0].getElementsByClassName("form-control")[0].value;
+					var actualQuestion = question.getElementsByClassName("form-group")[1].getElementsByClassName("form-control")[0].value;
+					var questionType = question.getElementsByClassName("form-group")[2].getElementsByClassName("form-control")[0].value;
+					var possibleAnswers = question.getElementsByClassName("form-group")[3].getElementsByClassName("form-control")[0].value;
+					var correctAnswers = question.getElementsByClassName("form-group")[4].getElementsByClassName("form-control")[0].value;
+					var questionData = new Question(questionID, actualQuestion, questionType, possibleAnswers, correctAnswers);
+					data += questionData.JSON();
+					if(i < size){
+						data += ",";
+					}
+				}
+				data += "]}";
+				console.log(data);
+			}
+			function closeBtn(){
+				document.getElementById("myNav").style.display = "0%";
+			}
+		</script>
+		<style>
+			#add{
+				margin-top: 2%;
+				background-color: #2692FF;
+				color: #ffffff;
+				margin-left: 20%;
+				border: none;
+				outline: none;
+				border-radius: 10px;
+				transition: 0.5s;
+			}
+			#addAnswer{
+				margin-top: 2%;
+				background-color: #2692FF;
+				color: #ffffff;
+				border: none;
+				outline: none;
+				border-radius: 10px;
+				transition: 0.5s;
+			}
+			#minusButton{
+				background-color: #FF3728;
+				color: #ffffff;
+				border: none;
+				outline: none;
+				display: inline-block;
+				border-radius: 10px;
+				transition: 0.5s;
+			}
+			#addplus{
+				color: #ffffff;
+				transition: 0.5s
+			}
+			#minus{
+				color: #ffffff;
+				transition: 0.5s;
+			}
+			#topElement{
+				display: inline;
+			}
+			#add:hover, #addAnswer:hover{
+				background-color: #ffffff;
+			}
+			#add:hover #addplus, #addAnswer:hover #addplus{
+				color: #2692FF;
+			}
+			#minusButton:hover{
+				background-color: #ffffff;
+			}
+			#minusButton:hover #minus{
+				color: #FF3728;
+			}
+			#mcAnswer{
+				margin-top: 2%;
+				width: 30%;
+			}
+			#form, #button{
+		
+				text-align: left;
+			
+			}
+			.form-group, #button{
+				width: 60%;
+				margin: auto;
+			}
+			#button{
+				
+			}
+			.overlay {
+				height: 50%;
+				width: 50%;
+				margin-left: 25%;
+				margin-top: 10%;
+				border-radius: 40px;
+				position: fixed;
+				z-index: 1;
+				background-color: rgb(0,0,0);
+				background-color: rgba(0,0,0, 0.9);
+				overflow-x: hidden;
+				transition: 0.5s;
+			}
+
+			.overlay-content {
+				position: relative;
+				top: 25%;
+				width: 100%;
+				text-align: center;
+				margin-top: 30px;
+			}
+
+			.overlay a, .overlay p {
+				padding: 8px;
+				text-decoration: none;
+				font-size: 36px;
+				color: #818181;
+				display: block;
+				transition: 0.3s;
+			}
+
+			.overlay a:hover, .overlay a:focus, .overlay p:hover, .overlay p:focus{
+				color: #f1f1f1;
+			}
+
+			.closebtn {
+				position: absolute;
+				right: 20px;
+				font-size: 60px !important;
+			}
+
+		
+		</style>
+	</head>
+	<body>
+		<button id="minusButton" style="display: none;">
+			<span id="minus" class="fa fa-minus"></span>
+		</button>
+		<div id="popup" class="overlay" style="display: block;">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">x</a>
+			<div class="overlay-content">
+				<p>Submitting test...</p>
+			</div>
+		</div>
+		<div align="center" id="form">
+				<button id="add" onClick="add()">
+					<span id="addplus" class="icono-plus"></span>
+				</button>
+				
+				
+		</div>
+		<div id="button" style="display: none;">
+			<input class="btn btn-large btn-primary" onClick="submit()" type="Submit" value="Submit"></input>
+		</div>
+		<div class="container" id="question" style="display: none;">
+			<div class="form-group">
+				<button id="minusButton" onClick="minus(this.parentNode.parentNode.id)">
+					<span id="minus" class="fa fa-minus"></span>
+				</button>
+				<label>Question</label>
+				<select class="form-control" name="type" onchange="selectType(this)">
+					<option value="">Select Type</option>
+					<option value="MC">MultipleChoice</option>
+					<option value="TF">True/False</option>
+					<option value="FITB">Fill in the blank(s)</option> 
+				</select>
+			</div>
+		</div>
+		</div>
+		<div class="container" id="mcQuestion" style="display: none;">
+			<br/>
+			<input id="questionType" type="hidden" value="MC" />
+			<div class="form-group">
+				<input id="question" type="text" class="form-control" placeholder="Question" name="actualQuestion"></input>
+			</div>
+			<div id="mcAnswers" class="form-group">
+				<label>Answer(s)</label><br/>
+				<button id="addAnswer" onClick="addAnswers(this.parentNode)">
+					<span id="addplus" class="icono-plus"></span>
+				</button>
+				<div id="form-group" style="display: none; margin-left: 10%;">
+					<button id="minusButton" onClick="minusAnswer(this.parentNode)">
+						<span id="minus" class="fa fa-minus"></span>
+					</button>
+					<input type="radio" name="answer"></input>
+					<input type="text" id="mcAnswer"></input>
+				</div>
+			</div>
+			<!--
+			<div class="form-group">
+				<label>Correct Answer(s)</label>
+				<input type="text" class="form-control" name="correctAnswers"></input>
+			</div>
+			-->
+		</div>
+		<div class="form-group" id="selectType" style="display: none;">
+			<label>QuestionType</label>
+			<select class="form-control" name="type">
+				<option value="MC">MultipleChoice</option>
+				<option value="TF">True/False</option>
+				<option value="FITB">Fill in the blank(s)</option> 
+			</select>
+		</div>
+		<!--
+		<form align="center">
+			<input type="hidden" name="testData"></input>
+			<input type="hidden" name="testSize"></input>
+			<div id="button" style="display: none;">
+				<input class="btn btn-large btn-primary" onClick="submit()" type="Submit" value="Submit"></input>
+			</div>
+		</form>
+		-->
+		<!--
+		<h2>Fullscreen Overlay Nav Example</h2>
+		<p>Click on the element below to open the fullscreen overlay navigation menu.</p>
+		<p>In this example, the navigation menu will slide in, from left to right:</p>
+		<span style="font-size:30px;cursor:pointer" onclick="openNav()">? zopen</span>
+		-->
+	<script>
+	function openNav() {
+		document.getElementById("popup").style.display = "block";
+	}
+
+	function closeNav() {
+		document.getElementById("popup").style.display = "none";
+	}
+	</script>
+	</body>
+</html>
