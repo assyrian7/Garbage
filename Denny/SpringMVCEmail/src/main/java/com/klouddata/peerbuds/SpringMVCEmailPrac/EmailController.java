@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.klouddata.peerbuds.entity.EmailInfo;
+import com.klouddata.peerbuds.SimpleEncodeDecode.SimpleEncodeDecode;
 
 @Controller
 public class EmailController {
@@ -34,6 +35,15 @@ public class EmailController {
 		model.addAttribute("mail", new EmailInfo());
 		return "EmailForm";
 	}
+	
+	//Should take user details as parameters
+	private String getToken()
+	{
+		String passphrase = "password";
+		String token = SimpleEncodeDecode.encrypt(UUID.randomUUID().toString(), passphrase);
+		
+		return token;
+	}
  
 	@RequestMapping(value = "send", method = RequestMethod.POST)
 	public String createResetEmail(HttpServletRequest request, ModelMap model,
@@ -47,8 +57,7 @@ public class EmailController {
 			String frEmail = ms.getUsername();
 			mailInfo.setFrom("no-reply@peerbuds-registration.com");
 			
-			String token = UUID.randomUUID().toString();
-			
+			String token = getToken();
 			String contextPath = "http://" + request.getServerName() + 
 				      ":" + request.getServerPort() + 
 				      request.getContextPath();
@@ -72,5 +81,5 @@ public class EmailController {
 		}
 		return "Result";
 	}
-	
+
 }
