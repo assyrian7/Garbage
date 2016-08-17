@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Reset Password</title>
 </head>
 <body>
 	<h2>Reset Password</h2>
-		<div>An e-mail has been sent to ${mail.to}</div>
-		<div>Please follow the instructions in the e-mail to reset your password.</div>
+	${plaintext}
 </body>
 </html>

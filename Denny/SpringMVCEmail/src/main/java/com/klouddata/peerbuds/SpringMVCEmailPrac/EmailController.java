@@ -29,6 +29,8 @@ public class EmailController {
 	ServletContext context;
 	@Autowired
 	JavaMailSender mailSender;
+	
+	String passphrase = "password";
  
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String showForm(ModelMap model) {
@@ -39,9 +41,7 @@ public class EmailController {
 	//Should take user details as parameters
 	private String getToken()
 	{
-		String passphrase = "password";
 		String token = SimpleEncodeDecode.encrypt(UUID.randomUUID().toString(), passphrase);
-		
 		return token;
 	}
  
@@ -61,7 +61,7 @@ public class EmailController {
 			String contextPath = "http://" + request.getServerName() + 
 				      ":" + request.getServerPort() + 
 				      request.getContextPath();
-			String url = contextPath + "/user/changePassword?id=" + mailInfo.getTo() + "&token=" + token;
+			String url = contextPath + "/user/resetPassword?id=" + mailInfo.getTo() + "&passphrase=" + passphrase + "&token=" + token;
 		
 			helper.setFrom(new InternetAddress(null, "Peerbuds Registration"));			
 			helper.setTo(mailInfo.getTo());
@@ -81,5 +81,14 @@ public class EmailController {
 		}
 		return "Result";
 	}
-
+	
+	@RequestMapping(value = "/user/resetPassword", method = RequestMethod.GET)
+	public String resetPassword(HttpServletRequest request, ModelMap model)
+	{
+		String token = request.getParameter("token");
+		String passphrase = request.getParameter("passphrase");
+		String decodedToken = SimpleEncodeDecode.decrypt(token, passphrase);
+		model.addAttribute("plaintext", "Decoded token is " + decodedToken);
+		return "resetPassword";
+	}
 }
