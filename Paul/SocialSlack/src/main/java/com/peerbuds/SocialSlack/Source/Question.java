@@ -6,16 +6,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class Question implements Serializable, JSONConverter{
+public class Question implements Serializable, JSONConverter, Comparable<Question>{
 	
 	private JSONObject inner;
 	private JSONObject wrapper;
+	
 	private int testID;
 	private int questionID;
 	private String question;
 	private String questionType;
 	private String possibleAnswers;
 	private String correctAnswers;
+	private String key;
+	
 	private static final long serialVersionUID = 1L;
 	
 	public Question(){
@@ -79,6 +82,15 @@ public class Question implements Serializable, JSONConverter{
 	public JSONObject getJSONObject(){
 		return wrapper;
 	}
+	public int compareTo(Question arg0) {
+		if(this.questionID < arg0.getQuestionID()){
+			return -1;
+		}
+		else if(this.questionID > arg0.getQuestionID()){
+			return 1;
+		}
+		return 0;
+	}
 	public boolean equals(Object object){
 		if(object == null){
 			return false;
@@ -97,6 +109,16 @@ public class Question implements Serializable, JSONConverter{
 	public String toString(){
 		return wrapper.toString();
 	}
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
+	}
+	public String getHashKey(){
+		return "" + testID + questionID + question + questionType + possibleAnswers + correctAnswers;
+	}
+	
 	
 	
 }

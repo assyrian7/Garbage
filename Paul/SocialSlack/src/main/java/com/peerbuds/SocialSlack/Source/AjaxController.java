@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -47,8 +48,8 @@ public class AjaxController {
 	}
 	
 	
-	@RequestMapping(value="/submit-test", method = RequestMethod.POST)
-	public @ResponseBody Callable<String> submitTest(HttpServletRequest request){
+	@RequestMapping(value="/submit-created-test", method = RequestMethod.POST)
+	public @ResponseBody Callable<String> submitCreatedTest(HttpServletRequest request){
 		
 		
 		return new Callable<String>(){
@@ -56,6 +57,7 @@ public class AjaxController {
 			public String call(){
 				HttpSession session = request.getSession();
 				if(session.getAttribute("profile") != null){
+										
 					Profile profile = (Profile)session.getAttribute("profile");
 					
 					String testData = request.getParameter("testData");
@@ -68,11 +70,12 @@ public class AjaxController {
 					test.setTestID(test.hashCode());
 					
 					List<Question> questions = questionService.getQuestionsFromSubmission(testData);
-					for(Question question: questions){
-						question.setTestID(test.getTestID());
-					}
 					for(int i = 0; i < testSize; i++){
 						questions.get(i).setQuestionID(i + 1);
+					}
+					for(Question question: questions){
+						question.setTestID(test.getTestID());
+						question.setKey(Encrypt.hash(question.getHashKey().toCharArray(), Salt.salt.getBytes(), question.getHashKey().length(), 256));
 					}
 					String questionResult = "";
 					for(Question question: questions){
@@ -90,6 +93,55 @@ public class AjaxController {
 		};
 		
 	}
+	
+	@RequestMapping(value = "/submit-taken-test", method = RequestMethod.POST)
+	public @ResponseBody Callable<String> submitTakenTest(HttpServletRequest request){
+		return new Callable<String>(){
+			public String call(){
+				
+				SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy|HH-mm-ss");
+				String timestamp = dateFormat.format(new Date()).toString();
+				
+				HttpSession session = request.getSession();
+				if(session.getAttribute("profile") != null){
+					
+					Profile profile = (Profile)session.getAttribute("profile");
+					String testData = request.getParameter("testData");
+					int testID = Integer.parseInt(request.getParameter("testID"));
+					
+					List<QuestionResult> questionResults = questionService.getQuestionResultsFromSubmission(testData);
+					for(QuestionResult questionResult: questionResults){
+						questionResult.setUserID(profile.getId());
+						questionResult.setTimestamp(timestamp);
+						questionResult.setKey(questionResult.getHashKey());
+					}
+					String questionSubmissionResult = "";
+					for(QuestionResult questionResult: questionResults){
+						questionSubmissionResult = questionService.addQuestionResultToAPI(questionResult);
+					}
+					
+					
+					TestResult testResult = new TestResult();
+					testResult.setUserID(profile.getId());
+					testResult.setTestID(testID);
+					testResult.setTimestamp(timestamp);
+					testResult.setKey(testResult.getHashKey());
+					
+					String testSubmissionResult = "";
+					
+					testSubmissionResult = testService.addTestResultToAPI(testResult);
+					
+					return testSubmissionResult;
+					
+				}
+				else{
+					return "Could not complete request";
+				}
+				
+			}
+		};
+	}
+	
 	private String getResult(String data){
 		JSONObject mainObj = null;
 		String result = null;

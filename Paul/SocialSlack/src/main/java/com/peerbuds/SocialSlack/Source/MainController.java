@@ -43,8 +43,10 @@ public class MainController{
 	}
 	   
 	@RequestMapping(value="/", method = RequestMethod.GET)
-	public String index() {
+	public String index(HttpServletRequest request) {
 	      
+		String token = request.getParameter("token");
+		
 	    return "index";
 	}
 	   

@@ -26,10 +26,16 @@
 					<td><c:out value="${question.getTestID()}" /></td>
 					<td><c:out value="${question.getQuestionType()}" /></td>
 					<td><c:out value="${question.getPossibleAnswers()}" /></td>
-					<td><c:out value="${question.getCorrectAnswer()}" /></td>
+					<td><c:out value="${question.getCorrectAnswers()}" /></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
+	<script>
+	
+		var a = ${questions.size()};
+		console.log(a);
+	
+	</script>
 </body>
 </html>

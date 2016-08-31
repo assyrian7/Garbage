@@ -16,7 +16,38 @@ public class Test implements Serializable, JSONConverter{
 	private int testID;
 	private int numberOfQuestions;
 	private int points;
+	private String name;
+	private String description;
+	private String categories;
 	
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+	public String getCategories() {
+		return categories;
+	}
+
+
+	public void setCategories(String categories) {
+		this.categories = categories;
+	}
 	private static final long serialVersionUID = 1L;
 	
 	
@@ -83,6 +114,9 @@ public class Test implements Serializable, JSONConverter{
 			inner.put("userID", userID);
 			inner.put("points", points);
 			inner.put("numberOfQuestions", numberOfQuestions);
+			inner.put("name", name);
+			inner.put("description", description);
+			inner.put("categories", categories);
 			wrapper.put("test", inner);
 		} catch(JSONException e){
 			

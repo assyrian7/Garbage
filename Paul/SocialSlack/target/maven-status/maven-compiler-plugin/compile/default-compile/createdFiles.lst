@@ -1,4 +1,6 @@
+com\peerbuds\SocialSlack\Source\TestResult.class
 com\peerbuds\SocialSlack\Source\MainController.class
+com\peerbuds\SocialSlack\Source\QuestionResult.class
 com\peerbuds\SocialSlack\Source\SignupController$1.class
 com\peerbuds\SocialSlack\Source\Profile.class
 com\peerbuds\SocialSlack\Source\Question.class
@@ -11,6 +13,7 @@ com\peerbuds\SocialSlack\Source\UserController$2.class
 com\peerbuds\SocialSlack\Source\LoginController$1.class
 com\peerbuds\SocialSlack\Source\Encrypt.class
 com\peerbuds\SocialSlack\Source\Salt.class
+com\peerbuds\SocialSlack\Source\AjaxController$2.class
 com\peerbuds\SocialSlack\Source\QuestionList.class
 com\peerbuds\SocialSlack\Source\SpringConfig.class
 com\peerbuds\SocialSlack\Source\MainController$1.class
@@ -18,8 +21,10 @@ com\peerbuds\SocialSlack\Source\ProfileService.class
 com\peerbuds\SocialSlack\Source\UserController.class
 com\peerbuds\SocialSlack\Forms\SignUpForm.class
 com\peerbuds\SocialSlack\Source\Test.class
+com\peerbuds\SocialSlack\Source\TestController$1.class
 com\peerbuds\SocialSlack\Source\TestController.class
 com\peerbuds\SocialSlack\Forms\LoginForm.class
+com\peerbuds\SocialSlack\Source\TestController$2.class
 com\peerbuds\SocialSlack\Source\TestService.class
 com\peerbuds\SocialSlack\Source\AjaxController.class
 com\peerbuds\SocialSlack\Source\QuestionService.class

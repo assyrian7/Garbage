@@ -6,12 +6,13 @@
 	<head>
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"></link> <!-- load bootstrap css -->
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"></link> <!-- load fontawesome -->
-		<link rel="stylesheet" href=<c:url value="/resources/icono.css" />></link>
+		<link rel="stylesheet" href=<c:url value="/resources/css/icono.css" />></link>
+		<link rel="shortcut icon" href=<c:url value="/resources/images/logo.png" />></link>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-		<script src=<c:url value="/resources/Question.js" />></script>
+		<script src=<c:url value="/resources/javascript/Question.js" />></script>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"></meta>
-		<title>Click to duplicate</title>
+		<title>Create Test</title>
 		<script type="text/javascript">
 			var qNum = 1;
 			var size = 0;
@@ -46,11 +47,11 @@
 				var form = document.getElementById("form");
 				for(i = 1; i <= size; i++){
 					var question = form.getElementsByClassName("container")[i];
-					var questionID = question.getElementsByClassName("form-group")[0].getElementsByClassName("form-control")[0].value;
-					var actualQuestion = question.getElementsByClassName("form-group")[1].getElementsByClassName("form-control")[0].value;
-					var questionType = question.getElementsByClassName("form-group")[2].getElementsByClassName("form-control")[0].value;
-					var possibleAnswers = question.getElementsByClassName("form-group")[3].getElementsByClassName("form-control")[0].value;
-					var correctAnswers = question.getElementsByClassName("form-group")[4].getElementsByClassName("form-control")[0].value;
+					var questionID = i
+					var actualQuestion = question.getElementsByClassName("form-group")[0].getElementsByClassName("form-control")[0].value;
+					var questionType = question.getElementsByClassName("form-group")[1].getElementsByClassName("form-control")[0].value;
+					var possibleAnswers = question.getElementsByClassName("form-group")[2].getElementsByClassName("form-control")[0].value;
+					var correctAnswers = question.getElementsByClassName("form-group")[3].getElementsByClassName("form-control")[0].value;
 					var questionData = new Question(questionID, actualQuestion, questionType, possibleAnswers, correctAnswers);
 					data += questionData.JSON();
 					if(i < size){
@@ -60,16 +61,18 @@
 				data += "]}";
 				console.log(data);
 				console.log(size);
-				openNav();
 				var popup = document.getElementById("popup");
+				var response = document.getElementById("testresponse");
+				document.getElementById("button").onClick = null;
+				document.getElementById("submitButton").disabled = true;
 				$.ajax({
 					type: 'POST',
-		            url : 'http://localhost:8080/SocialSlack/ajax/submit-test?testData=' + data + '&testSize=' + size,
+		            url : 'http://localhost:8080/SocialSlack/ajax/submit-created-test?testData=' + data + '&testSize=' + size,
 		            beforeSend : function(){
-		            	popup.style.display = "block";
+		            	openNav();
 		            },
 		            success : function(data) {
-		            	popup.lastChild.innerHtml = data;
+		            	response.innerHtml = data;
 		            	console.log(data);
 		            	console.log("done");
 		            }
@@ -129,7 +132,7 @@
 				margin: auto;
 			}
 			#button{
-				
+				outline: none;
 			}
 			.overlay {
 				height: 50%;
@@ -178,7 +181,7 @@
 		<div id="popup" class="overlay" style="display: none;">
 			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">x</a>
 			<div class="overlay-content">
-				<p>Submitting test...</p>
+				<p id="testresponse">Submitting test...</p>
 			</div>
 		</div>
 		<div align="center" id="form">
@@ -191,11 +194,6 @@
 						<button id="minusButton" onClick="minus(this.parentNode.parentNode.id)">
 							<span id="minus" class="fa fa-minus"></span>
 						</button>
-						<label>Question#:</label>
-						<input type="text" class="form-control" name="questionNumber"></input>
-					</div>
-					
-					<div class="form-group">
 						<label>Question</label>
 						<input type="text" class="form-control" name="actualQuestion"></input>
 					</div>
@@ -219,7 +217,7 @@
 				
 		</div>
 		<div id="button" onClick="submit()" style="display: none;">
-			<button class="btn btn-large btn-primary" value="Submit"></button>
+			<button id="submitButton" class="btn btn-large btn-primary">Submit</button>
 		</div>
 		<!--
 		<form align="center">
@@ -231,6 +229,11 @@
 		</form>
 		-->
 		<script>
+		<%--
+		function grayButton(button){
+			button.style.background-color = "#808080";
+		}
+		--%>
 		function openNav() {
 			document.getElementById("popup").style.display = "block";
 		}
