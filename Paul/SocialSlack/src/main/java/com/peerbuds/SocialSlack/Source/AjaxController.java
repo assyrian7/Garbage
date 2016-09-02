@@ -142,6 +142,31 @@ public class AjaxController {
 		};
 	}
 	
+	@RequestMapping(value="search-categories", method = RequestMethod.GET)
+	public @ResponseBody String searchCategories(HttpServletRequest request){
+		
+		int index = 0;
+		String[] results = new String[Categories.categories.length];
+		String category = request.getParameter("category");
+		String[] categories = Categories.categories;
+		for(int i = 0; i < categories.length; i++){
+			if(category.length() == 1){
+				if(categories[i].charAt(0) == category.charAt(0)){
+					results[index] = categories[i];
+					index++;
+				}
+			}
+			else if(categories[i].substring(0, category.length()).equals(category)){
+				results[index] = categories[i];
+				index++;
+			}
+			else if(category.length() >= 3 && categories[i].contains(category)){
+				results[index] = categories[i];
+			}
+		}
+		return String.join(";", categories);
+	}
+	
 	private String getResult(String data){
 		JSONObject mainObj = null;
 		String result = null;
