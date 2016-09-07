@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile UI</title>
+</head>
+<body>
+<style>
+    /*asterisk selector to remove browser margins*/
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    /*end asterisk selector*/
+    /*nav-bar style*/
+    .header {
+        background-color: white;
+        height: 60px;
+        width: 100%;
+        position: fixed;
+        z-index: 10;
+    }
+    #nav_container {
+        height: 60px;
+        margin-left: 10px;
+        margin-right: 10px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    #logo {
+        padding: 5px;
+    }
+    #left_of_login {
+        float: right;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        height: 20px;
+    }
+    #left_of_login > ul {
+        list-style-type: none;
+    }
+    #left_of_login > ul > li {
+        display: inline;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    #vertical {
+        color: #dddfe1;
+    }
+    .future_link:hover {
+        cursor: pointer;
+        color: #fb6705;
+    }
+    /*end nav-bar style*/
+
+    /*left menu css*/
+    .left_menu {
+        width: 340px;
+        background-color: #2a334f;
+        height: 100%;
+        position: fixed;
+        color: white;
+        margin-top: 15px;
+        font-size: 14px;
+    }
+    .menu_divider {
+        border-bottom: thin solid #606574;
+        border-width: 1px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    .menu_content {
+        margin-top: 60px;
+    }
+    .section_wrapper {
+        /*
+        padding: 5px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        */
+    }
+    .menu_section {
+        margin-right: 15px;
+        margin-left: 15px;
+    }
+    .menu_section > div > ul > li{
+        list-style-type: none;
+    }
+    .left_section_head {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    .following_img {
+        margin-right: 10px;
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        clear: both;
+    }
+    .online {
+        height: 9px;
+        width: 9px;
+        background-color: rgb(66, 183, 42);
+        float: left;
+        display: inline-block;
+        margin-top: 10px;
+        margin-right: 10px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 30px;
+        border-radius: 50%;
+    }
+    .following_list > li:hover {
+        background-color: #43517d;
+        cursor: pointer;
+    }
+    .following_list > li {
+        display: block;
+        padding: 5px;
+        margin: -5px;
+        margin-bottom: 5px;
+    }
+    .following_list {
+        font-size: 16px;
+        margin-bottom: -5px;
+    }
+    .following_value {
+        display: inline-block;
+        margin-left: 10px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 30px;
+    }
+    #folder_list {
+        margin-bottom: -5px;
+    }
+    #folder_list > li{
+        padding: 5px;
+        margin: -5px;
+        margin-bottom: 5px;
+    }
+    #folder_list > li:hover {
+        background-color: #43517d;
+        cursor: pointer;
+        /*5e5d89 purple, 43517d blue*/
+    }
+    .folder_value {
+        margin-left: 5px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 20px;
+    }
+    .folder_img {
+        float: left;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 20px;
+        margin-right: 5px;
+    }
+    #cross {
+        position: relative;
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 16px;
+    }
+    #cross div {
+        position: absolute;
+        background-color: #0075e1;
+
+    }
+    #cross_vertical {
+        left: 7px;
+        width: 2px;
+        height: 100%;
+    }
+    #cross_horizontal {
+        top: 7px;
+        width: 100%;
+        height: 2px;
+    }
+    .add_folder {
+        margin-top: 15px;
+        cursor: pointer;
+    }
+    #add {
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 16px;
+    }
+    #blog_description {
+        margin-top: 15px;
+    }
+    #blog_title {
+        font-size: 20px;
+    }
+    #blog_author {
+        color: #888888;
+    }
+    .blog_content {
+        margin: -5px;
+        padding: 5px;
+    }
+    .blog_content:hover {
+        cursor: pointer;
+        background-color: #43517d;
+    }
+    #Yosemite {
+        margin-left: 27px;
+        margin-right: 47px;
+    }
+    #support {
+        font-size: 12px;
+    }
+    /*end left menu css*/
+
+    /*profile and cover overlay*/
+    .profile_bar {
+        width: 100%;
+        height: 130px;
+        margin-top: 60px;
+        margin-left: 340px;
+        position: absolute;
+        color: white;
+    }
+    #upper_bar {
+        width: 100%;
+        height: 80px;
+        background-color: #373756;
+        position: fixed;
+    }
+    #lower_bar {
+        box-sizing: border-box;
+        height: 50px;
+        margin-top: 80px;
+        width: 100%;
+        background-color: #5e5d89;
+        position: fixed;
+    }
+    #something {
+        margin-top: 10px;
+        margin-left: 10px;
+        position: fixed;
+    }
+    #bar_menu {
+        margin-left: 140px;
+        list-style-type: none;
+        font-size: 20px;
+        height: 24px;
+        padding-top: 13px;
+        padding-bottom: 13px;
+    }
+    #bar_menu > li {
+        display: inline;
+        padding-left: 30px;
+        padding-right: 30px;
+        cursor: pointer;
+    }
+    /*end profile and cover overlay*/
+    body {
+        background-color: #ece5db;
+        font-family: Arial;
+        overflow: hidden;
+    }
+    body > div {
+        display: inline-block;
+    }
+</style>
+<!--nav-bar/header html-->
+<div class="header">
+    <div id="nav_container">
+        <img src="imgs/logo.png" id="logo">
+        <span id="left_of_login">
+            <ul id="nav">
+                <li class="future_link">
+                    About
+                </li>
+                <li class="future_link">
+                    Support
+                </li>
+                <li class="future_link">
+                    FAQ
+                </li>
+                <li id="vertical">
+                    |
+                </li>
+                <li class="future_link">
+                    Log in
+                </li>
+                <li class="future_link">
+                    Sign up
+                </li>
+            </ul>
+        </span>
+    </div>
+</div>
+<!--end nav-bar/header html-->
+<div class="left_menu">
+    <div class="menu_content">
+        <div class="menu_section">
+            <div class="section_wrapper">
+                <div class="left_section_head">
+                    Following
+                </div>
+                <ul class="following_list">
+                    <li>
+                        <span class="online"></span>
+                        <img src="imgs/test%20face.png" class="following_img">
+                        <div class="following_value">
+                            Paul
+                        </div>
+                    </li>
+                    <li>
+                        <span class="online"></span>
+                        <img src="imgs/test%20face.png" class="following_img">
+                        <div class="following_value">
+                            Paul
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="menu_divider" id="div1"></div>
+        <div class="menu_section" id="folders">
+            <div class="section_wrapper">
+                <div class="left_section_head">
+                    Folders
+                </div>
+                <ul id="folder_list">
+                    <li>
+                        <img src="imgs/Folder2.png" class="folder_img">
+                        <span class="folder_value">
+                            My Math Folder
+                        </span>
+                    </li>
+                    <li>
+                        <img src="imgs/Folder2.png" class="folder_img">
+                        <span class="folder_value">
+                            My Chemistry Folder
+                        </span>
+                    </li>
+                    <li>
+                        <img src="imgs/Folder2.png" class="folder_img">
+                        <span class="folder_value">
+                            My Vocabulary Folder
+                        </span>
+                    </li>
+                </ul>
+                <div class="add_folder">
+                    <div id="cross">
+                        <div id="cross_vertical">
+                        </div>
+                        <div id="cross_horizontal">
+                        </div>
+                    </div>
+                    <div id="add">
+                        Add folder or w/e
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="menu_divider" id="div2"></div>
+        <div class="menu_section" id="blog">
+            <div class="section_wrapper">
+                <div class="left_section_head">
+                    News
+                </div>
+                <div class="blog_content">
+                    <img src="imgs/Blog%20IMG3.png" id="Yosemite">
+                    <div id="blog_title">
+                        Yosemite Trip
+                    </div>
+                    <div id="blog_author">
+                        Kenny posted 2 days ago
+                    </div>
+                    <div id="blog_description">
+                        Yo I went to Yosemite and I took some awesome photos. I took so many photos and they are all awesome.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="menu_divider" id="div3"></div>
+            <div class="menu_section" id="support">
+                <div class="section_wrapper">
+                    <ul>
+                        <li>
+                            Support
+                        </li>
+                        <li>
+                            Contact
+                        </li>
+                        <li>
+                            FAQ
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    </div>
+</div>
+<!--profile overlay-->
+<div class="profile_bar">
+    <div class="profile_wrapper">
+        <div id="upper_bar">
+        </div>
+        <div id="lower_bar">
+            <ul id="bar_menu">
+                <li>
+                    History
+                </li>
+                <li>
+                    Statistics
+                </li>
+                <li>
+                    Your Tests
+                </li>
+            </ul>
+        </div>
+        <div id="profile_IMG">
+        </div>
+        <img src="imgs/Profile IMG.png" id="something">
+    </div>
+</div>
+<!--end profile overlay-->
+</body>
+</html>
